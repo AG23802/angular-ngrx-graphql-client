@@ -5,13 +5,12 @@ import { ChangeDetectorRef } from "@angular/core";
 import { API_URL } from '../tokens/api-url.token';  // Import your token here
 import { AuthService } from '../auth-service';
 @Component({
-  selector: 'app-user',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './user.component.html',
-  providers: [
-    { provide: API_URL, useValue: 'https://my-custom-api.com' }  // Providing the token with a custom value
-  ]
+    selector: 'app-user',
+    imports: [CommonModule],
+    templateUrl: './user.component.html',
+    providers: [
+        { provide: API_URL, useValue: 'https://my-custom-api.com' } // Providing the token with a custom value
+    ]
 })
 export class UserComponent {
   private userService = inject(UserService);

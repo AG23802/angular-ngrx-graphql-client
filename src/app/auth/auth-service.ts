@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { LOGIN_MUTATION } from './graphql/mutations';
 import { Apollo } from "apollo-angular";
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -25,23 +25,8 @@ export class AuthService {
       })
       .pipe(
         map((result: any) => {
-          const token = result.data?.login.token;
-          this.setToken(token); // << Centralized logic
           return result.data?.login;
         })
       );
-  }
-
-  // auth.service.ts
-  setToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  clearToken() {
-    localStorage.removeItem('token');
   }
 }

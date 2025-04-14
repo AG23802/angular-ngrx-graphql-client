@@ -1,0 +1,8 @@
+<div>
+    @if (isLoggedIn$ | async) {
+        <button (click)="getData()">Get Data</button>
+        <button (click)="logout()">LOGOUT</button>
+    } @else {
+        <button (click)="login()">LOGIN</button>
+    }
+</div>

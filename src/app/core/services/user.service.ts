@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
+import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LOGIN_MUTATION, CREATE_USER_MUTATION } from '../graphql/mutations';
-import { GET_USERS_QUERY } from '../graphql/queries';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { GET_USERS_QUERY } from '../../home/graphql/queries';
+import { CREATE_USER_MUTATION } from '../../home/graphql/mutations';
+import { } from '../../auth/graphql/queries';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private fullUrl = environment.graphqlApi;
-  constructor(private apollo: Apollo, private http: HttpClient) {}
+  constructor(private apollo: Apollo) { }
 
   getUsers(): Observable<any> {
     return this.apollo
@@ -25,8 +25,6 @@ export class UserService {
       .valueChanges.pipe(map((result: any) => result.data.users));
   }
 
-
-
   createUser(name: string, email: string): Observable<any> {
     return this.apollo.mutate({
       mutation: CREATE_USER_MUTATION,
@@ -38,9 +36,5 @@ export class UserService {
         email: email,
       },
     }).pipe(map((result: any) => result.data.createUser));
-  }
-
-  getData() {
-    return this.http.get('http://localhost:8080/protected/data');
   }
 }

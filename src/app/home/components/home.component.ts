@@ -7,7 +7,7 @@ import { isAuthenticated } from '../../auth/store/auth.selectors';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-user',
+  selector: 'app-home',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './home.component.html',

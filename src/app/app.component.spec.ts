@@ -1,10 +1,24 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { Store } from '@ngrx/store';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 describe('AppComponent', () => {
+  const storeMock = {
+    select: jasmine.createSpy().and.returnValue(of('angular-tour-of-heroes')),
+    dispatch: jasmine.createSpy()
+  };
+
+  let httpClient: any;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [
+        { provide: Store, useValue: storeMock },
+        { provide: HttpClient, useValue: httpClient }
+      ]
     }).compileComponents();
   });
 
@@ -24,6 +38,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-tour-of-heroes');
+    expect(compiled.querySelector('h1')?.textContent).toContain('GraphQL and JWT demo');
   });
 });

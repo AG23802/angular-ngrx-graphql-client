@@ -6,15 +6,15 @@ import { catchError, map, mergeMap, tap, of } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {
-  login$: any
-  storeToken$: any
-  logout$: any
+  login$: any;
+  storeToken$: any;
+  logout$: any;
 
   constructor(private actions$: Actions, private authService: AuthService) {
     this.login$ = createEffect(() =>
       this.actions$.pipe(
         ofType(AuthActions.login),
-        tap(action => console.log('Login action received:', action)),
+        tap((action) => console.log('Login action received:', action)),
         mergeMap(({ username, password }) =>
           this.authService.login(username, password).pipe(
             map((data) => AuthActions.loginSuccess({ token: data.token })),
@@ -41,6 +41,5 @@ export class AuthEffects {
         ),
       { dispatch: false }
     );
-
   }
 }

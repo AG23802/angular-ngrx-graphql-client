@@ -8,7 +8,4 @@ export const selectToken = createSelector(
   (state) => state.token
 );
 
-export const isAuthenticated = createSelector(
-  selectToken,
-  (token) => !!token
-);
+export const isAuthenticated = createSelector(selectToken, (token) => !!token);

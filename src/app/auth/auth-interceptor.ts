@@ -9,13 +9,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const store = inject(Store);
   return store.select(selectToken).pipe(
     take(1), // Only take the latest token once
-    exhaustMap(token => {
+    exhaustMap((token) => {
       const authReq = token
         ? req.clone({
-          setHeaders: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+            setHeaders: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
         : req;
 
       return next(authReq);

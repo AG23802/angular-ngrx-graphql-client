@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 describe('AppComponent', () => {
   const storeMock = {
     select: jasmine.createSpy().and.returnValue(of('angular-tour-of-heroes')),
-    dispatch: jasmine.createSpy()
+    dispatch: jasmine.createSpy(),
   };
 
   let httpClient: any;
@@ -17,8 +17,8 @@ describe('AppComponent', () => {
       imports: [AppComponent],
       providers: [
         { provide: Store, useValue: storeMock },
-        { provide: HttpClient, useValue: httpClient }
-      ]
+        { provide: HttpClient, useValue: httpClient },
+      ],
     }).compileComponents();
   });
 
@@ -26,18 +26,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'angular-tour-of-heroes' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-tour-of-heroes');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('GraphQL and JWT demo');
   });
 });

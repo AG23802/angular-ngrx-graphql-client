@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { map, Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { LOGIN_MUTATION } from './graphql/mutations';
-import { Apollo } from "apollo-angular";
+import { Apollo } from 'apollo-angular';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   private fullUrl = environment.graphqlApi;
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo) {}
 
   login(username: string, password: string): Observable<any> {
     return this.apollo

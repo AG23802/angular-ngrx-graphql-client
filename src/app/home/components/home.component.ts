@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { API_URL } from '../../core/tokens/api-url.token';  // Import your token here
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../auth/store/auth.actions';
 import { isAuthenticated } from '../../auth/store/auth.selectors';
@@ -11,27 +10,15 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './home.component.html',
-  providers: [
-    { provide: API_URL, useValue: 'https://my-custom-api.com' } // Providing the token with a custom value
-  ]
 })
 export class HomeComponent {
+  users: any[] = [];
+
   get isLoggedIn$() {
     return this.store.select(isAuthenticated);
   }
 
-  users: any[] = [];
-
-  apiURL = inject(API_URL);
-
-  constructor(
-    private store: Store,
-    private http: HttpClient
-  ) { }
-
-  ngOnInit() {
-    console.log('API URL:', this.apiURL);  // Log the injected API URL
-  }
+  constructor(private store: Store, private http: HttpClient) {}
 
   login() {
     this.store.dispatch(
@@ -40,9 +27,7 @@ export class HomeComponent {
   }
 
   logout() {
-    this.store.dispatch(
-      AuthActions.logout()
-    );
+    this.store.dispatch(AuthActions.logout());
   }
 
   getData() {
@@ -53,7 +38,8 @@ export class HomeComponent {
       },
       (error) => {
         // Handle error, e.g. show an error message
-        console.error("Login failed", error);
-      })
+        console.error('Login failed', error);
+      }
+    );
   }
 }

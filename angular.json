@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-tour-of-heroes": {
+    "angular-graphql-jwt-demo": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/angular-tour-of-heroes"
+              "base": "dist/angular-graphql-jwt-demo"
             },
             "index": "src/index.html",
             "polyfills": [
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-tour-of-heroes:build:production"
+              "buildTarget": "angular-graphql-jwt-demo:build:production"
             },
             "development": {
-              "buildTarget": "angular-tour-of-heroes:build:development"
+              "buildTarget": "angular-graphql-jwt-demo:build:development"
             }
           },
           "defaultConfiguration": "development"

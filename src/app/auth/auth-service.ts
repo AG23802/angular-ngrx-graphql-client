@@ -1,32 +1,17 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { LOGIN_MUTATION } from './graphql/mutations';
-import { Apollo } from 'apollo-angular';
 import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private fullUrl = environment.graphqlApi;
-  constructor(private apollo: Apollo) {}
+  private fullUrl = environment.apiBaseUrl;
+  private httpClient = inject(HttpClient);
 
   login(username: string, password: string): Observable<any> {
-    return this.apollo
-      .mutate({
-        mutation: LOGIN_MUTATION,
-        variables: {
-          username,
-          password,
-        },
-        context: {
-          uri: this.fullUrl,
-        },
-      })
-      .pipe(
-        map((result: any) => {
-          return result.data?.login;
-        })
-      );
+    return this.httpClient
+      .post(`${this.fullUrl}/auth/login`, { username, password });
   }
 }

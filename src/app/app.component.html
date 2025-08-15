@@ -1,11 +1,19 @@
-<h1>GraphQL and JWT demo</h1>
+<h1 appHighlight>{{ "GraphQL and JWT demo" | reverse }}</h1>
 
 <div>
   @if (isLoggedIn$ | async) {
   <button (click)="getData()">Get Data</button>
   <button (click)="logout()">LOGOUT</button>
   } @else {
-  <button (click)="login()">LOGIN</button>
+  <form [formGroup]="loginForm" (submit)="login()">
+    <input type="text" formControlName="username" />
+
+    @if (loginForm.get('username')?.hasError('usernameTaken')) {
+    <div>This username is already taken.</div>
+    }
+    <input type="password" formControlName="password" />
+    <button>LOGIN</button>
+  </form>
   }
 </div>
 

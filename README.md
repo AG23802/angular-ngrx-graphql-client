@@ -1,53 +1,30 @@
-# Angular GraphQL Client
+# Angular NgRx GraphQL Client
 
-This is the frontend client for a full-stack application. It demonstrates a professional-grade single-page application built with **Angular** that consumes a secure **GraphQL API**. The application uses **NgRx** for robust state management and includes a custom **HTTP Interceptor** to handle **JWT authentication** and refresh tokens.
-
-***
-
-## Features
-
-* **NgRx Store**: Centralized state management for a scalable and predictable application.
-* **GraphQL Client**: Uses the Apollo client to efficiently query and mutate data from the backend API.
-* **JWT Authentication**: Secure user login, session management, and protected route access.
-* **HTTP Interceptor**: Automates the addition of JWTs to all API requests and handles transparent token refresh.
-* **RxJS**: Extensive use of reactive programming to manage asynchronous data streams.
+This project is a professional-grade frontend client built with **Angular** and a modern technology stack. It showcases a robust client-side implementation for a secure, full-stack application that consumes a **GraphQL API**. This repository serves as a showcase for advanced frontend development practices.
 
 ***
 
-## Prerequisites
+## Key Features
 
-Before you begin, ensure you have the following installed:
+### Secure Authentication
 
-* **Node.js**
-* **npm**
-* **Angular CLI**
+* **JWT Interceptor:** A custom HTTP interceptor automatically attaches the **JSON Web Token (JWT)** to every outgoing API request. This demonstrates an advanced understanding of Angular's interceptor pattern for secure, stateless communication.
+* **Token Refresh:** The application implements a seamless token refresh mechanism. It intelligently detects when a token is about to expire and transparently fetches a new one from the backend, ensuring a continuous user session without requiring re-authentication.
 
-***
+### Advanced State Management
 
-## Installation
+* **NgRx Store:** The application leverages **NgRx** for centralized, predictable state management. This approach provides a single source of truth for the application's data, which is crucial for building complex applications that are easy to debug and scale.
+* **RxJS:** Extensive use of **RxJS** for reactive programming and managing asynchronous data streams from the API and the store.
 
-1.  Clone the repository:
-    ```
-    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-    ```
-2.  Navigate to the project directory:
-    ```
-    cd your-repo-name
-    ```
-3.  Install the dependencies:
-    ```
-    npm install
-    ```
+### GraphQL Integration
+
+* **GraphQL Client:** Utilizes an integrated GraphQL client to consume the backend API. This demonstrates proficiency with GraphQL's query language, allowing the client to fetch only the data it needs, reducing payload size and improving performance.
+* **Queries & Mutations:** The application performs both **queries** (to fetch data) and **mutations** (to modify data) for full CRUD-like functionality.
 
 ***
 
-## Usage
+## Getting Started
 
 1.  Ensure the backend API is running.
-2.  Start the Angular development server:
-    ```
-    ng serve
-    ```
-3.  Open your browser and navigate to `http://localhost:4200`.
-
-***
+2.  Clone the repository and install dependencies using `npm install`.
+3.  Run the application with `ng serve`.

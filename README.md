@@ -1,27 +1,53 @@
-# AngularTourOfHeroes
+# Angular GraphQL Client
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
+This is the frontend client for a full-stack application. It demonstrates a professional-grade single-page application built with **Angular** that consumes a secure **GraphQL API**. The application uses **NgRx** for robust state management and includes a custom **HTTP Interceptor** to handle **JWT authentication** and refresh tokens.
 
-## Development server
+***
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+* **NgRx Store**: Centralized state management for a scalable and predictable application.
+* **GraphQL Client**: Uses the Apollo client to efficiently query and mutate data from the backend API.
+* **JWT Authentication**: Secure user login, session management, and protected route access.
+* **HTTP Interceptor**: Automates the addition of JWTs to all API requests and handles transparent token refresh.
+* **RxJS**: Extensive use of reactive programming to manage asynchronous data streams.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+***
 
-## Build
+## Prerequisites
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Before you begin, ensure you have the following installed:
 
-## Running unit tests
+* **Node.js**
+* **npm**
+* **Angular CLI**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+***
 
-## Running end-to-end tests
+## Installation
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1.  Clone the repository:
+    ```
+    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+    ```
+2.  Navigate to the project directory:
+    ```
+    cd your-repo-name
+    ```
+3.  Install the dependencies:
+    ```
+    npm install
+    ```
 
-## Further help
+***
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Usage
+
+1.  Ensure the backend API is running.
+2.  Start the Angular development server:
+    ```
+    ng serve
+    ```
+3.  Open your browser and navigate to `http://localhost:4200`.
+
+***

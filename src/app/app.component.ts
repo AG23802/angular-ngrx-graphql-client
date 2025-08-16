@@ -17,7 +17,7 @@ import { debounceTime, delay, map, of } from 'rxjs';
 import { ReversePipe } from './pipes/reverse/reverse.pipe';
 import { HighlightDirective } from './directives/highlight/highlight.directive';
 import { Apollo } from 'apollo-angular';
-import { CITY_ADDED_SUBSCRIPTION } from './auth/graphql/subscriptions';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -78,23 +78,15 @@ export class AppComponent implements OnInit {
   }
 
   getData() {
-    this.apollo
-      .subscribe({
-        query: CITY_ADDED_SUBSCRIPTION,
-      })
-      .subscribe((result) => {
-        console.log('New city added', result);
-      });
-
-    // this.userService.getData().subscribe(
-    //   (data) => {
-    //     // Handle successful login
-    //     console.log(data);
-    //   },
-    //   (error) => {
-    //     // Handle error, e.g. show an error message
-    //     console.error('Login failed', error);
-    //   }
-    // );
+    this.userService.getData().subscribe(
+      (data) => {
+        // Handle successful login
+        console.log(data);
+      },
+      (error) => {
+        // Handle error, e.g. show an error message
+        console.error('Login failed', error);
+      }
+    );
   }
 }

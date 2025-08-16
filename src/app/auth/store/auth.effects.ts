@@ -7,13 +7,13 @@ import { catchError, map, mergeMap, tap, of } from 'rxjs';
 @Injectable()
 export class AuthEffects {
   login$: any;
-  storeToken$: any;
+  storeAccessToken$: any;
   logout$: any;
 
   private actions$ = inject(Actions);
   private authService = inject(AuthService);
 
-  num = this.identity<number>(123);     // returns number
+  num = this.identity<number>(123); // returns number
   str = this.identity<string>('hello'); // returns string
 
   identity<T>(value: T): T {
@@ -27,18 +27,21 @@ export class AuthEffects {
         tap((action) => console.log('Login action received:', action)),
         mergeMap(({ username, password }) =>
           this.authService.login(username, password).pipe(
-            map(token => AuthActions.loginSuccess({ token })),
+            map(({accessToken, refreshToken}) => AuthActions.loginSuccess({ accessToken, refreshToken })),
             catchError((error) => of(AuthActions.loginFailure({ error })))
           )
         )
       )
     );
 
-    this.storeToken$ = createEffect(
+    this.storeAccessToken$ = createEffect(
       () =>
         this.actions$.pipe(
           ofType(AuthActions.loginSuccess),
-          tap(({ token }) => localStorage.setItem('token', token))
+          tap(({ accessToken, refreshToken }) => {
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken);
+          })
         ),
       { dispatch: false }
     );
@@ -47,7 +50,7 @@ export class AuthEffects {
       () =>
         this.actions$.pipe(
           ofType(AuthActions.logout),
-          tap(() => localStorage.removeItem('token'))
+          tap(() => localStorage.removeItem('accessToken'))
         ),
       { dispatch: false }
     );

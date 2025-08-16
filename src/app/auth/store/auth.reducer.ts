@@ -2,20 +2,22 @@ import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
 
 export interface AuthState {
-  token: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
   error: any;
 }
 
 export const initialState: AuthState = {
-  token: localStorage.getItem('token'),
+  accessToken: localStorage.getItem('accessToken'),
+  refreshToken: localStorage.getItem('refreshToken'),
   error: null,
 };
 
 export const authReducer = createReducer(
   initialState,
-  on(AuthActions.loginSuccess, (state, { token }) => ({
+  on(AuthActions.loginSuccess, (state, { accessToken }) => ({
     ...state,
-    token,
+    accessToken,
     error: null,
   })),
   on(AuthActions.loginFailure, (state, { error }) => ({
@@ -23,7 +25,8 @@ export const authReducer = createReducer(
     error,
   })),
   on(AuthActions.logout, () => ({
-    token: null,
+    accessToken: null,
+    refreshToken: null,
     error: null,
   }))
 );

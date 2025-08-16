@@ -14,4 +14,8 @@ export class AuthService {
     return this.httpClient
       .post(`${this.fullUrl}/auth/login`, { username, password });
   }
+
+  refreshToken(refreshToken: string): Observable<any> {
+    return this.httpClient.post(`${this.fullUrl}/auth/refresh`, { refreshToken });
+  }
 }

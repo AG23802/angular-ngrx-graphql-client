@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 describe('AppComponent', () => {
   const storeMock = {
-    select: jasmine.createSpy().and.returnValue(of('angular-graphql-jwt-demo')),
+    select: jasmine.createSpy().and.returnValue(of('angular-ngrx-graphql-client')),
     dispatch: jasmine.createSpy(),
   };
 

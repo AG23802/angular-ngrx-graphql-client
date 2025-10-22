@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-graphql-jwt-demo": {
+    "angular-ngrx-graphql-client": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/angular-graphql-jwt-demo"
+              "base": "dist/angular-ngrx-graphql-client"
             },
             "index": "src/index.html",
             "polyfills": [
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-graphql-jwt-demo:build:production"
+              "buildTarget": "angular-ngrx-graphql-client:build:production"
             },
             "development": {
-              "buildTarget": "angular-graphql-jwt-demo:build:development"
+              "buildTarget": "angular-ngrx-graphql-client:build:development"
             }
           },
           "defaultConfiguration": "development"

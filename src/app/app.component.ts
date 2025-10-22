@@ -11,6 +11,7 @@ import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { debounceTime, delay, map, of } from 'rxjs';
@@ -46,11 +47,19 @@ export class AppComponent implements OnInit {
     this.loginForm = this.fb.group({
       username: [
         'admin',
-        [Validators.required],
+        [Validators.required, this.noSpaceValidator],
         [this.usernameASYNCValidator()],
       ],
       password: ['123456', [Validators.required]],
     });
+  }
+
+  noSpaceValidator(control: AbstractControl): ValidationErrors | null {
+    if (control.value && control.value.indexOf(' ') >= 0) {
+      return { noSpace: true };
+    }
+    
+    return null;
   }
 
   usernameASYNCValidator(): AsyncValidatorFn {

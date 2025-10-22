@@ -12,7 +12,7 @@
     <div>This username is already taken.</div>
     }
     <input type="password" formControlName="password" />
-    <button>LOGIN</button>
+    <button [disabled]="loginForm.invalid">LOGIN</button>
   </form>
   }
 </div>

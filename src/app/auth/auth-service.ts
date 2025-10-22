@@ -12,10 +12,10 @@ export class AuthService {
 
   login(username: string, password: string): Observable<any> {
     return this.httpClient
-      .post(`${this.fullUrl}/auth/login`, { username, password });
+      .post(`${this.fullUrl}/api/v1/auth/login`, { username, password });
   }
 
   refreshToken(refreshToken: string): Observable<any> {
-    return this.httpClient.post(`${this.fullUrl}/auth/refresh`, { refreshToken });
+    return this.httpClient.post(`${this.fullUrl}/api/v1/auth/refresh`, { refreshToken });
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "angular-graphql-jwt-demo",
+  "name": "angular-ngrx-graphql-client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

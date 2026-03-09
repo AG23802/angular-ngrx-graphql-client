@@ -25,13 +25,19 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.login),
         tap((action) => console.log('Login action received:', action)),
-        mergeMap(({ username, password }) =>
-          this.authService.login(username, password).pipe(
-            map(({accessToken, refreshToken}) => AuthActions.loginSuccess({ accessToken, refreshToken })),
-            catchError((error) => of(AuthActions.loginFailure({ error })))
-          )
-        )
-      )
+        mergeMap(() =>
+          this.authService.login().pipe(
+            // 2. Map the Microsoft result into your EXISTING Success action
+            map((response) =>
+              AuthActions.loginSuccess({
+                accessToken: response.accessToken,
+                refreshToken: '', // Azure handles refresh silently!
+              }),
+            ),
+            catchError((error) => of(AuthActions.loginFailure({ error }))),
+          ),
+        ),
+      ),
     );
 
     this.storeAccessToken$ = createEffect(
@@ -41,18 +47,18 @@ export class AuthEffects {
           tap(({ accessToken, refreshToken }) => {
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
-          })
+          }),
         ),
-      { dispatch: false }
+      { dispatch: false },
     );
 
     this.logout$ = createEffect(
       () =>
         this.actions$.pipe(
           ofType(AuthActions.logout),
-          tap(() => localStorage.removeItem('accessToken'))
+          tap(() => localStorage.removeItem('accessToken')),
         ),
-      { dispatch: false }
+      { dispatch: false },
     );
   }
 }

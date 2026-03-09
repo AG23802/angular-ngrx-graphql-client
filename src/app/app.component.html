@@ -4,6 +4,10 @@
   @if (isLoggedIn$ | async) {
   <button (click)="getData()">Get Data</button>
   <button (click)="logout()">LOGOUT</button>
+
+  <div>
+    <input type="text" [formControl]="searchContorl" />
+  </div>
   } @else {
   <form [formGroup]="loginForm" (submit)="login()">
     <input type="text" formControlName="username" />
@@ -15,6 +19,8 @@
     <button [disabled]="loginForm.invalid">LOGIN</button>
   </form>
   }
+
+  {{ val() }}
 </div>
 
 <router-outlet />

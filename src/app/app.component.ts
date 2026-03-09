@@ -1,4 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as AuthActions from './auth/store/auth.actions';
@@ -14,10 +21,11 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { debounceTime, delay, map, of } from 'rxjs';
+import { debounceTime, delay, map, of, Subject, switchMap, tap } from 'rxjs';
 import { ReversePipe } from './pipes/reverse/reverse.pipe';
 import { HighlightDirective } from './directives/highlight/highlight.directive';
 import { Apollo } from 'apollo-angular';
+import { Observable } from '@apollo/client/utilities';
 
 @Component({
   selector: 'app-root',
@@ -39,11 +47,38 @@ export class AppComponent implements OnInit {
   private userService = inject(UserService);
   private apollo = inject(Apollo);
 
+  searchContorl = this.fb.control('');
+
+  public val = signal(10);
+
   get isLoggedIn$() {
     return this.store.select(isAuthenticated);
   }
 
+  myEff = effect(() => {
+    // console.log('Current val signal value:', this.val());
+  });
+
   ngOnInit(): void {
+    this.searchContorl.valueChanges
+      .pipe(
+        debounceTime(300),
+        tap((value) => console.log('Debounced Value:', value)),
+        switchMap((value) =>
+          of(value).pipe(
+            delay(2000) // Simulate async operation like an HTTP request
+          )
+        )
+      )
+      .subscribe({
+        next: (finalValue) =>
+          console.log('Final Value after async operation:', finalValue),
+        error: (err) =>
+          console.error('Error in search control valueChanges:', err),
+        complete: () =>
+          console.log('Completed processing search control valueChanges'),
+      });
+
     this.loginForm = this.fb.group({
       username: [
         'admin',
@@ -58,7 +93,7 @@ export class AppComponent implements OnInit {
     if (control.value && control.value.indexOf(' ') >= 0) {
       return { noSpace: true };
     }
-    
+
     return null;
   }
 
@@ -86,16 +121,60 @@ export class AppComponent implements OnInit {
     this.store.dispatch(AuthActions.logout());
   }
 
-  getData() {
-    this.userService.getData().subscribe(
-      (data) => {
-        // Handle successful login
-        console.log(data);
-      },
-      (error) => {
-        // Handle error, e.g. show an error message
-        console.error('Login failed', error);
-      }
-    );
+  async getData() {
+    const result = await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('Promise Resolved!');
+      }, 1500);
+
+      // reject('Promise Rejected!');
+    });
+
+    // console.log(result);
+
+    // const myPromise = new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve('Promise Resolved!');
+    //   }, 1500);
+
+    //   // reject('Promise Rejected!');
+    // });
+
+    // myPromise.then(
+    //   (res) => console.log(res),
+    //   (err) => console.error(err)
+    // );
+
+    this.val.update((v) => v + 1);
+
+    // this.userService.getData().subscribe(
+    //   (data) => {
+    //     // Handle successful login
+    //     console.log(data);
+    //   },
+    //   (error) => {
+    //     // Handle error, e.g. show an error message
+    //     console.error('Login failed', error);
+    //   }
+    // );
+
+    const obs$ = new Observable((sub) => {
+      console.log('Observable executed');
+      sub.next(Math.random());
+    });
+
+    // obs$.subscribe((val) => console.log('Sub1:', val));
+    // obs$.subscribe((val) => console.log('Sub2:', val));
+
+
+
+
+const subject = new Subject<number>();
+
+subject.subscribe(val => console.log('Sub1:', val));
+subject.subscribe(val => console.log('Sub2:', val));
+
+subject.next(1);
+subject.next(2);
   }
 }

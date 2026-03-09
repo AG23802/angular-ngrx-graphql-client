@@ -27,7 +27,7 @@ export class AuthEffects {
         tap((action) => console.log('Login action received:', action)),
         mergeMap(({ username, password }) =>
           this.authService.login(username, password).pipe(
-            map(({accessToken, refreshToken}) => AuthActions.loginSuccess({ accessToken, refreshToken })),
+            map(({ auth: { accessToken, refreshToken } }) => AuthActions.loginSuccess({ accessToken, refreshToken })),
             catchError((error) => of(AuthActions.loginFailure({ error })))
           )
         )
